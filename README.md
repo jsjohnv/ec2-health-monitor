@@ -282,9 +282,29 @@ Potential improvements include:
 ## Project Status
 
 - Python Flask API: Completed
-- Health-check implementation: Completed
+- Health-check implementation (9 checks): Completed
+- Configurable warning and critical thresholds: Completed
+- Local API testing: Completed
 - Docker image build: Completed
 - Docker API testing: Completed
-- GitHub publication: Pending
-- AWS EC2 deployment: Pending
-- Final remote API validation: Pending
+- GitHub publication: Completed
+- AWS EC2 deployment (Ubuntu 24.04): Completed
+- Gunicorn application server: Completed
+- systemd service configuration: Completed
+- EC2 disk monitoring issue resolution: Completed
+- Final remote API validation: Completed
+- HTTPS and authentication: Pending
+- CI/CD pipeline automation: Pending
+
+AWS Deployment Details
+
+- AWS Region: ap-south-1 (Mumbai)
+- EC2 Instance Type: t3.micro
+- Operating System: Ubuntu Server 24.04 LTS
+- Application Port: 8000
+- Application Server: Gunicorn
+- Service Manager: systemd
+- Deployment Method: GitHub clone and Python virtual environment
+- API Endpoints:
+  GET /health
+  GET /health/details
