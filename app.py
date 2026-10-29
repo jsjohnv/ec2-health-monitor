@@ -123,7 +123,9 @@ def check_disk():
             "proc", "sysfs", "tmpfs", "devtmpfs",
             "devpts", "cgroup", "cgroup2", "mqueue",
             "iso9660", "binfmt_misc", "hugetlbfs",
-            "tracefs", "fusectl", "configfs", "debugfs"
+            "tracefs", "fusectl", "configfs", "debugfs",
+	    "squashfs","securityfs", "pstore", "efivarfs",
+            "bpf", "autofs"
         ):
             continue
         # Exclude virtual filesystems and Docker configuration mounts.
