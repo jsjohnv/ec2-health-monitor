@@ -193,9 +193,22 @@ Replace EC2_PUBLIC_IP with the actual EC2 public IPv4 address.
 
 ### Deployment Status
 
-AWS EC2 deployment is pending.
+AWS EC2 deployment completed successfully.
 
-Update this section with the actual deployment details and verification results after deployment.
+The Python Flask Health Check API is deployed on an AWS EC2
+t3.micro instance running Ubuntu 24.04 LTS in the Mumbai
+(ap-south-1) region.
+
+Gunicorn serves the application on port 8000, and systemd
+manages automatic startup and service restarts.
+
+The deployment is automated using a Jenkins CI/CD pipeline
+integrated with GitHub. Jenkins validates the application,
+deploys the selected Git commit to EC2 over SSH, and verifies
+the API health after deployment.
+
+Deployment verified on October 30, 2026.
+
 
 ## Testing and Troubleshooting
 
@@ -294,7 +307,7 @@ Potential improvements include:
 - EC2 disk monitoring issue resolution: Completed
 - Final remote API validation: Completed
 - HTTPS and authentication: Pending
-- CI/CD pipeline automation: Pending
+- Jenkins CI/CD pipeline automation: Completed. The pipeline checks out code from GitHub, validates the Python application, deploys the selected commit to AWS EC2 over SSH, and verifies application health.
 
 AWS Deployment Details
 
@@ -308,3 +321,57 @@ AWS Deployment Details
 - API Endpoints:
   GET /health
   GET /health/details
+
+## API Response Examples
+
+### GET /health
+
+Returns the overall health of the Linux server.
+
+- HTTP 200: Healthy or degraded
+- HTTP 503: Unhealthy
+
+Example response from AWS EC2:
+
+```json
+{
+  "hostname": "ip-172-31-6-251",
+  "reason": "All system and network checks are healthy",
+  "status": "healthy",
+  "timestamp": "2026-10-30T03:00:02.507070+00:00"
+}
+```
+
+### GET /health/details
+
+Returns detailed system and network health checks.
+
+Example response captured from AWS EC2:
+
+```json
+{
+  "hostname": "ip-172-31-6-251",
+  "status": "healthy",
+  "timestamp": "2026-10-30T02:49:56.878072+00:00",
+  "checks": {
+    "cpu": {
+      "value": 5.3,
+      "unit": "%",
+      "warning_threshold": 75.0,
+      "critical_threshold": 90.0,
+      "status": "healthy"
+    },
+    "memory": {
+      "used_percent": 41.79,
+      "available_mb": 529.39,
+      "warning_threshold": 80.0,
+      "critical_threshold": 95.0,
+      "status": "healthy"
+    }
+  }
+}
+```
+
+This is an abbreviated example. The complete response includes CPU, memory, disk, load average, uptime, DNS, outbound TCP connectivity, listening TCP ports, and network interfaces.
+
+Actual values change depending on server activity.
